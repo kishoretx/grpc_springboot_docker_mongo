@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProductServiceClient {
 
 
-    public static void mainMAIN(String[] args) {
+    public static void main(String[] args) {
 
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
                 .usePlaintext()
