@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package prod;
+
+option java_multiple_files = true;
+option java_package = "com.prod";
+
+import "google/protobuf/empty.proto";
+
+message ProductRequest {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+message ProductResponse {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+service ProductService {
+  rpc GetProduct(ProductId) returns (ProductResponse);
+  rpc AddProduct(ProductRequest) returns (ProductId);
+  rpc UpdateProduct(ProductRequest) returns (google.protobuf.Empty);
+  rpc DeleteProduct(ProductId) returns (google.protobuf.Empty);
+  rpc AllProducts(google.protobuf.Empty) returns (ProductList);
+}
+
+message ProductId {
+  string id  = 1;
+}
+
+message ProductList {
+  repeated ProductResponse product = 1;
+}

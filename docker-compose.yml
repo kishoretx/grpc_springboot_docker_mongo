@@ -1,0 +1,35 @@
+version: '3'
+services:
+  product-app:
+    # image: kishore979/product-app:v2.0  # Specify the image name and version
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/mydatabase
+
+  mongo:
+    image: mongo
+    container_name: product-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
